@@ -1,0 +1,37 @@
+{
+  "ETV": {
+    "total_posts": 565,
+    "total_reach": 3644186,
+    "total_follows": 36729,
+    "total_saves": 32606,
+    "total_likes": 138548
+  },
+  "ETH": {
+    "total_posts": 531,
+    "total_reach": 6066681,
+    "total_follows": 33502,
+    "total_saves": 45339,
+    "total_likes": 145994
+  },
+  "NAC": {
+    "total_posts": 564,
+    "total_reach": 14996694,
+    "total_follows": 135563,
+    "total_saves": 153011,
+    "total_likes": 653899
+  },
+  "MNEE": {
+    "total_posts": 280,
+    "total_reach": 1108943,
+    "total_follows": 920,
+    "total_saves": 2317,
+    "total_likes": 16734
+  },
+  "C&A": {
+    "total_posts": 662,
+    "total_reach": 16228837,
+    "total_follows": 51262,
+    "total_saves": 104866,
+    "total_likes": 778521
+  }
+}

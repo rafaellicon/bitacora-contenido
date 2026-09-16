@@ -1,0 +1,1803 @@
+<title>Bitácora de Contenido</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #EEF1F6; --surface: #FFFFFF; --surface-2: #F5F7FA; --text: #161A22; --text-muted: #5B6472;
+    --border: #DCE1E9; --accent: #2B4C8C; --accent-soft: #E4EAF6; --gold: #A9781F; --gold-soft: #F3E7CE;
+    --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --font-body: 'IBM Plex Sans', -apple-system, Segoe UI, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #10141C; --surface: #171D28; --surface-2: #1D2430; --text: #E7EAF0; --text-muted: #8B95A6;
+      --border: #262E3D; --accent: #7FA0DE; --accent-soft: #223251; --gold: #E0B15F; --gold-soft: #3A2E17;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #10141C; --surface: #171D28; --surface-2: #1D2430; --text: #E7EAF0; --text-muted: #8B95A6;
+    --border: #262E3D; --accent: #7FA0DE; --accent-soft: #223251; --gold: #E0B15F; --gold-soft: #3A2E17;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 15px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .page { max-width: 1180px; margin: 0 auto; padding: 48px 24px 96px; }
+  .masthead { margin-bottom: 32px; }
+  .masthead-eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+  .masthead h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(32px, 5vw, 46px); margin: 0 0 10px; text-wrap: balance; letter-spacing: -0.01em; }
+  .masthead p { margin: 0; color: var(--text-muted); max-width: 62ch; font-size: 15.5px; }
+  .totals-strip { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
+  .totals-strip .t-item { display: flex; flex-direction: column; gap: 2px; }
+  .totals-strip .t-value { font-family: var(--font-mono); font-weight: 600; font-size: 20px; font-variant-numeric: tabular-nums; }
+  .totals-strip .t-label { font-size: 12.5px; color: var(--text-muted); }
+  nav.brand-nav { display: flex; gap: 8px; flex-wrap: wrap; margin: 28px 0 40px; }
+  .nav-pill { font-family: var(--font-mono); font-size: 13px; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--border); color: var(--text); text-decoration: none; background: var(--surface); transition: border-color .15s ease, background .15s ease; }
+  .nav-pill:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .hero { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 28px 30px; margin-bottom: 28px; }
+  .hero-eyebrow { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; font-weight: 600; }
+  .hero-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: center; }
+  .hero-brand { font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
+  .hero-brand-code { color: var(--accent); font-weight: 600; }
+  .hero-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(20px, 2.6vw, 27px); margin: 0 0 16px; text-wrap: balance; line-height: 1.25; }
+  .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .hero-link { font-size: 14px; font-weight: 600; text-decoration: none; }
+  .hero-link:hover { text-decoration: underline; }
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .hero-stat { background: var(--surface-2); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+  .hero-stat-value { font-family: var(--font-mono); font-weight: 600; font-size: 22px; font-variant-numeric: tabular-nums; }
+  .hero-stat-label { font-size: 12px; color: var(--text-muted); }
+  .hero-stat-primary .hero-stat-value { color: var(--accent); }
+  .hero-stat-gold { background: var(--gold-soft); }
+  .hero-stat-gold .hero-stat-value { color: var(--gold); }
+  .heroes-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 48px; }
+  .heroes-row .hero { margin-bottom: 0; }
+  .tag { display: inline-block; font-size: 11.5px; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--border); color: var(--text-muted); background: var(--surface-2); white-space: nowrap; }
+  .tag-format { font-family: var(--font-mono); }
+  .brand-section { margin-bottom: 60px; scroll-margin-top: 20px; }
+  .brand-header { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 18px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
+  .brand-name { font-family: var(--font-display); font-weight: 600; font-size: 30px; margin: 0; letter-spacing: -0.01em; }
+  .brand-full-name { color: var(--text-muted); font-size: 13.5px; margin-top: 2px; }
+  .brand-summary { display: flex; gap: 24px; flex-wrap: wrap; }
+  .summary-stat { display: flex; flex-direction: column; gap: 2px; text-align: right; }
+  .summary-value { font-family: var(--font-mono); font-weight: 600; font-size: 18px; font-variant-numeric: tabular-nums; }
+  .summary-label { font-size: 11.5px; color: var(--text-muted); }
+  .summary-stat-gold .summary-value { color: var(--gold); }
+  .ranking-block { margin-bottom: 26px; }
+  .ranking-title { font-family: var(--font-body); font-size: 14px; font-weight: 600; margin: 0 0 10px; }
+  .ranking-sub { font-weight: 400; color: var(--text-muted); font-size: 13px; }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+  table { width: 100%; border-collapse: collapse; min-width: 820px; }
+  thead th { text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); font-weight: 600; padding: 12px 14px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--surface); }
+  thead th.hl { color: var(--accent); }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--surface-2); }
+  td { padding: 11px 14px; vertical-align: top; }
+  .col-rank { font-family: var(--font-mono); color: var(--text-muted); width: 32px; }
+  .col-title { min-width: 230px; }
+  .row-title { font-weight: 500; margin-bottom: 6px; line-height: 1.4; }
+  .row-meta { display: flex; gap: 6px; flex-wrap: wrap; }
+  .col-date { color: var(--text-muted); font-size: 13px; white-space: nowrap; }
+  th.num, td.num { text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td.num.hl { color: var(--accent); font-weight: 600; }
+  .num-gold { color: var(--gold); font-weight: 600; }
+  .col-link { text-align: right; white-space: nowrap; }
+  .col-link a { font-size: 13px; font-weight: 600; text-decoration: none; }
+  .col-link a:hover { text-decoration: underline; }
+  footer.page-footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 12.5px; }
+  @media (max-width: 900px) { .heroes-row { grid-template-columns: 1fr; } }
+  @media (max-width: 760px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-stats { grid-template-columns: repeat(4, 1fr); }
+    .brand-header { align-items: flex-start; }
+    .brand-summary { gap: 16px; }
+  }
+</style>
+
+<div class="page">
+  <header class="masthead">
+    <div class="masthead-eyebrow">Auditoría de contenido orgánico &middot; sep 2025&ndash;ago 2026 (1 año)</div>
+    <h1>Bitácora de Contenido</h1>
+    <p>Reels, carruseles y fotos publicados en Instagram por las 5 marcas. Cada marca trae dos rankings — por alcance (mayor exposición) y por interacción (mejor candidato a campaña) — con tema, formato, fecha y enlace a la publicación original.</p>
+    <div class="totals-strip">
+      <div class="t-item"><span class="t-value">2.602</span><span class="t-label">publicaciones analizadas</span></div>
+      <div class="t-item"><span class="t-value">42.045.341</span><span class="t-label">alcance acumulado</span></div>
+      <div class="t-item"><span class="t-value">257.976</span><span class="t-label">seguidores generados</span></div>
+    </div>
+  </header>
+
+  <nav class="brand-nav"><a href="#brand-etv" class="nav-pill">ETV</a><a href="#brand-eth" class="nav-pill">ETH</a><a href="#brand-nac" class="nav-pill">NAC</a><a href="#brand-mnee" class="nav-pill">MNEE</a><a href="#brand-ca" class="nav-pill">C&amp;A</a></nav>
+
+  <div class="heroes-row">
+    
+    <section class="hero">
+      <div class="hero-eyebrow">Mayor alcance del periodo</div>
+      <div class="hero-grid">
+        <div class="hero-main">
+          <div class="hero-brand">Nacionalízate <span class="hero-brand-code">NAC</span></div>
+          <h2 class="hero-title">🥊 ¡El combate que no sabías que terminaría en un abrazo! 🇲🇽🤝🇪🇸</h2>
+          <div class="hero-tags">
+            <span class="tag">Oportunidad de visado</span>
+            <span class="tag tag-format">Reel</span>
+            <span class="tag tag-date">1 jun 2026</span>
+          </div>
+          <a class="hero-link" href="https://www.instagram.com/reel/DZDJj5viOL4/" target="_blank" rel="noopener">Ver publicación en Instagram ↗</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat hero-stat-primary">
+            <span class="hero-stat-value">1.674.618</span>
+            <span class="hero-stat-label">Alcance</span>
+          </div>
+          
+          <div class="hero-stat">
+            <span class="hero-stat-value">159.943</span>
+            <span class="hero-stat-label">Interacciones</span>
+          </div>
+          <div class="hero-stat hero-stat-gold">
+            <span class="hero-stat-value">20.448</span>
+            <span class="hero-stat-label">Seguidores</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">9.55%</span>
+            <span class="hero-stat-label">Tasa</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="hero">
+      <div class="hero-eyebrow">Mayor tasa de interacción del periodo</div>
+      <div class="hero-grid">
+        <div class="hero-main">
+          <div class="hero-brand">España Te Homologa <span class="hero-brand-code">ETH</span></div>
+          <h2 class="hero-title">¿Alguna vez te has parado frente a esta estatua y has sentido que Madrid es el lugar...</h2>
+          <div class="hero-tags">
+            <span class="tag">Motivacional/Inspiracional</span>
+            <span class="tag tag-format">Reel</span>
+            <span class="tag tag-date">2 jul 2026</span>
+          </div>
+          <a class="hero-link" href="https://www.instagram.com/reel/DaSwg_TAg12/" target="_blank" rel="noopener">Ver publicación en Instagram ↗</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat hero-stat-primary">
+            <span class="hero-stat-value">19.05%</span>
+            <span class="hero-stat-label">Tasa de interacción</span>
+          </div>
+          
+          <div class="hero-stat">
+            <span class="hero-stat-value">91.547</span>
+            <span class="hero-stat-label">Alcance</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">17.443</span>
+            <span class="hero-stat-label">Interacciones</span>
+          </div>
+          <div class="hero-stat hero-stat-gold">
+            <span class="hero-stat-value">238</span>
+            <span class="hero-stat-label">Seguidores</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  
+    <section class="brand-section" id="brand-etv">
+      <div class="brand-header">
+        <div class="brand-name-block">
+          <h3 class="brand-name">ETV</h3>
+          <div class="brand-full-name">Estuvisa</div>
+        </div>
+        <div class="brand-summary">
+          <div class="summary-stat">
+            <span class="summary-value">565</span>
+            <span class="summary-label">publicaciones (1 año)</span>
+          </div>
+          <div class="summary-stat">
+            <span class="summary-value">3.644.186</span>
+            <span class="summary-label">alcance acumulado</span>
+          </div>
+          <div class="summary-stat summary-stat-gold">
+            <span class="summary-value">36.729</span>
+            <span class="summary-label">seguidores generados</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ranking-block">
+        <h4 class="ranking-title">Top por alcance <span class="ranking-sub">— mayor exposición</span></h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th class="col-rank">#</th><th class="col-title">Publicación</th><th class="col-date">Fecha</th>
+              <th class="num hl">Alcance</th><th class="num">Interacc.</th><th class="num">Tasa</th>
+              <th class="num">Seguid.</th><th class="num">Guard.</th><th class="col-link"></th>
+            </tr></thead>
+            <tbody>
+          <tr>
+            <td class="col-rank">1</td>
+            <td class="col-title">
+              <div class="row-title">🇪🇸 El visado que las familias eligen para vivir en España</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">11 jun 2026</td>
+            <td class="num hl ">648.796</td>
+            <td class="num ">97.123</td>
+            <td class="num ">14.97%</td>
+            <td class="num num-gold">23.625</td>
+            <td class="num ">10.972</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DZdOKlCiGMn/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">2</td>
+            <td class="col-title">
+              <div class="row-title">🇪🇸 De estudiante a residente: El hack legal. (43 car.)</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">31 may 2026</td>
+            <td class="num hl ">422.145</td>
+            <td class="num ">67.148</td>
+            <td class="num ">15.91%</td>
+            <td class="num num-gold">592</td>
+            <td class="num ">2.591</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DZA9FWbEbaB/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">3</td>
+            <td class="col-title">
+              <div class="row-title">🧳 ¿Quieres mudarte a España pero no tienes un contrato de trabajo?</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">15 sep 2025</td>
+            <td class="num hl ">399.393</td>
+            <td class="num ">1.469</td>
+            <td class="num ">0.37%</td>
+            <td class="num num-gold">35</td>
+            <td class="num ">613</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DOnnnkHjSz3/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">4</td>
+            <td class="col-title">
+              <div class="row-title">🇪🇸 ¿Médico GRATIS en España? Sí, es real. 👇</div>
+              <div class="row-meta">
+                <span class="tag">Trámite paso a paso</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">19 may 2026</td>
+            <td class="num hl ">341.022</td>
+            <td class="num ">6.501</td>
+            <td class="num ">1.91%</td>
+            <td class="num num-gold">1.624</td>
+            <td class="num ">1.309</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DYhNeBylWwN/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">5</td>
+            <td class="col-title">
+              <div class="row-title">🇪🇸 3 Visas legales para España (con permiso de trabajo)</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">23 may 2026</td>
+            <td class="num hl ">317.982</td>
+            <td class="num ">15.786</td>
+            <td class="num ">4.96%</td>
+            <td class="num num-gold">4.705</td>
+            <td class="num ">2.984</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DYsaCmVkSV0/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">6</td>
+            <td class="col-title">
+              <div class="row-title">👇 ¿Recién llegado a España? Evita estos errores 👇</div>
+              <div class="row-meta">
+                <span class="tag">Mitos y errores comunes</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">29 may 2026</td>
+            <td class="num hl ">252.699</td>
+            <td class="num ">8.159</td>
+            <td class="num ">3.23%</td>
+            <td class="num num-gold">1.956</td>
+            <td class="num ">2.591</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DY65z7CkVK9/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">7</td>
+            <td class="col-title">
+              <div class="row-title">🎓 ¿España por menos de 1.000€? ¡Es posible!</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de negocio</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">11 may 2026</td>
+            <td class="num hl ">125.466</td>
+            <td class="num ">2.895</td>
+            <td class="num ">2.31%</td>
+            <td class="num num-gold">522</td>
+            <td class="num ">454</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DYNep2VjFqN/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">8</td>
+            <td class="col-title">
+              <div class="row-title">🇪🇸 Madrid te está llamando (y el destino no se equivoca). ✨</div>
+              <div class="row-meta">
+                <span class="tag">Motivacional/Inspiracional</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">22 mar 2026</td>
+            <td class="num hl ">75.118</td>
+            <td class="num ">3.411</td>
+            <td class="num ">4.54%</td>
+            <td class="num num-gold">194</td>
+            <td class="num ">105</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DWL5wqSgYZd/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="ranking-block">
+        <h4 class="ranking-title">Top por interacción <span class="ranking-sub">— mejores candidatos a campaña</span></h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th class="col-rank">#</th><th class="col-title">Publicación</th><th class="col-date">Fecha</th>
+              <th class="num">Alcance</th><th class="num hl">Interacc.</th><th class="num hl">Tasa</th>
+              <th class="num">Seguid.</th><th class="num">Guard.</th><th class="col-link"></th>
+            </tr></thead>
+            <tbody>
+          <tr>
+            <td class="col-rank">1</td>
+            <td class="col-title">
+              <div class="row-title">🇪🇸 El visado que las familias eligen para vivir en España</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">11 jun 2026</td>
+            <td class="num ">648.796</td>
+            <td class="num hl ">97.123</td>
+            <td class="num ">14.97%</td>
+            <td class="num num-gold">23.625</td>
+            <td class="num ">10.972</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DZdOKlCiGMn/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">2</td>
+            <td class="col-title">
+              <div class="row-title">🇪🇸 De estudiante a residente: El hack legal. (43 car.)</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">31 may 2026</td>
+            <td class="num ">422.145</td>
+            <td class="num hl ">67.148</td>
+            <td class="num ">15.91%</td>
+            <td class="num num-gold">592</td>
+            <td class="num ">2.591</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DZA9FWbEbaB/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">3</td>
+            <td class="col-title">
+              <div class="row-title">🇪🇸 3 Visas legales para España (con permiso de trabajo)</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">23 may 2026</td>
+            <td class="num ">317.982</td>
+            <td class="num hl ">15.786</td>
+            <td class="num ">4.96%</td>
+            <td class="num num-gold">4.705</td>
+            <td class="num ">2.984</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DYsaCmVkSV0/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">4</td>
+            <td class="col-title">
+              <div class="row-title">👇 ¿Recién llegado a España? Evita estos errores 👇</div>
+              <div class="row-meta">
+                <span class="tag">Mitos y errores comunes</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">29 may 2026</td>
+            <td class="num ">252.699</td>
+            <td class="num hl ">8.159</td>
+            <td class="num ">3.23%</td>
+            <td class="num num-gold">1.956</td>
+            <td class="num ">2.591</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DY65z7CkVK9/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">5</td>
+            <td class="col-title">
+              <div class="row-title">🇪🇸 ¿Médico GRATIS en España? Sí, es real. 👇</div>
+              <div class="row-meta">
+                <span class="tag">Trámite paso a paso</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">19 may 2026</td>
+            <td class="num ">341.022</td>
+            <td class="num hl ">6.501</td>
+            <td class="num ">1.91%</td>
+            <td class="num num-gold">1.624</td>
+            <td class="num ">1.309</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DYhNeBylWwN/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">6</td>
+            <td class="col-title">
+              <div class="row-title">🇪🇸 Madrid te está llamando (y el destino no se equivoca). ✨</div>
+              <div class="row-meta">
+                <span class="tag">Motivacional/Inspiracional</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">22 mar 2026</td>
+            <td class="num ">75.118</td>
+            <td class="num hl ">3.411</td>
+            <td class="num ">4.54%</td>
+            <td class="num num-gold">194</td>
+            <td class="num ">105</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DWL5wqSgYZd/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">7</td>
+            <td class="col-title">
+              <div class="row-title">🎓 ¿España por menos de 1.000€? ¡Es posible!</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de negocio</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">11 may 2026</td>
+            <td class="num ">125.466</td>
+            <td class="num hl ">2.895</td>
+            <td class="num ">2.31%</td>
+            <td class="num num-gold">522</td>
+            <td class="num ">454</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DYNep2VjFqN/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">8</td>
+            <td class="col-title">
+              <div class="row-title">¿Ganar €4.000 al mes como Ingeniero en Sistemas en España? 💻</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad laboral</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">24 jul 2026</td>
+            <td class="num ">51.397</td>
+            <td class="num hl ">2.167</td>
+            <td class="num ">4.22%</td>
+            <td class="num num-gold">345</td>
+            <td class="num ">245</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DbLnut_CU_H/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="brand-section" id="brand-eth">
+      <div class="brand-header">
+        <div class="brand-name-block">
+          <h3 class="brand-name">ETH</h3>
+          <div class="brand-full-name">España Te Homologa</div>
+        </div>
+        <div class="brand-summary">
+          <div class="summary-stat">
+            <span class="summary-value">531</span>
+            <span class="summary-label">publicaciones (1 año)</span>
+          </div>
+          <div class="summary-stat">
+            <span class="summary-value">6.066.681</span>
+            <span class="summary-label">alcance acumulado</span>
+          </div>
+          <div class="summary-stat summary-stat-gold">
+            <span class="summary-value">33.502</span>
+            <span class="summary-label">seguidores generados</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ranking-block">
+        <h4 class="ranking-title">Top por alcance <span class="ranking-sub">— mayor exposición</span></h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th class="col-rank">#</th><th class="col-title">Publicación</th><th class="col-date">Fecha</th>
+              <th class="num hl">Alcance</th><th class="num">Interacc.</th><th class="num">Tasa</th>
+              <th class="num">Seguid.</th><th class="num">Guard.</th><th class="col-link"></th>
+            </tr></thead>
+            <tbody>
+          <tr>
+            <td class="col-rank">1</td>
+            <td class="col-title">
+              <div class="row-title">España necesita médicos y hoy más que nunca tu profesión puede abrirte las puertas. 🩺</div>
+              <div class="row-meta">
+                <span class="tag">Homologación de títulos</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">1 sep 2025</td>
+            <td class="num hl ">633.901</td>
+            <td class="num ">7.142</td>
+            <td class="num ">1.13%</td>
+            <td class="num num-gold">766</td>
+            <td class="num ">759</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DOEiTtKgpFN/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">2</td>
+            <td class="col-title">
+              <div class="row-title">¿Sabías que no necesitas estar en España para homologar? 🇪🇸✈️</div>
+              <div class="row-meta">
+                <span class="tag">Homologación de títulos</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">4 mar 2026</td>
+            <td class="num hl ">578.333</td>
+            <td class="num ">20.914</td>
+            <td class="num ">3.62%</td>
+            <td class="num num-gold">7.355</td>
+            <td class="num ">4.951</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DVdqSFnjHlU/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">3</td>
+            <td class="col-title">
+              <div class="row-title">Muchos piensan que deben mudarse a España para homologar su título universitario, per...</div>
+              <div class="row-meta">
+                <span class="tag">Homologación de títulos</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">2 sep 2025</td>
+            <td class="num hl ">557.108</td>
+            <td class="num ">50.362</td>
+            <td class="num ">9.04%</td>
+            <td class="num num-gold">7.977</td>
+            <td class="num ">6.662</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DOHF55DDYFz/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">4</td>
+            <td class="col-title">
+              <div class="row-title">¿Sabías que tu título universitario vale mucho más de lo que crees en España? 🎓✨</div>
+              <div class="row-meta">
+                <span class="tag">Homologación de títulos</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">16 abr 2026</td>
+            <td class="num hl ">406.324</td>
+            <td class="num ">16.434</td>
+            <td class="num ">4.04%</td>
+            <td class="num num-gold">5.530</td>
+            <td class="num ">4.091</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DXM-JA_AZWO/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">5</td>
+            <td class="col-title">
+              <div class="row-title">España busca 200.000 enfermeros para 2030 🇪🇸</div>
+              <div class="row-meta">
+                <span class="tag">Homologación de títulos</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">1 may 2026</td>
+            <td class="num hl ">214.278</td>
+            <td class="num ">5.910</td>
+            <td class="num ">2.76%</td>
+            <td class="num num-gold">2.184</td>
+            <td class="num ">487</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DXzwbP1EmhO/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">6</td>
+            <td class="col-title">
+              <div class="row-title">Si eres ingeniero y planeas venir a España, debes saber que homologar o solicitar la...</div>
+              <div class="row-meta">
+                <span class="tag">Homologación de títulos</span>
+                <span class="tag tag-format">Carrusel</span>
+              </div>
+            </td>
+            <td class="col-date">16 sep 2025</td>
+            <td class="num hl ">152.161</td>
+            <td class="num ">297</td>
+            <td class="num ">0.2%</td>
+            <td class="num num-gold">3</td>
+            <td class="num ">26</td>
+            <td class="col-link"><a href="https://www.instagram.com/p/DOq1DblAtx_/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">7</td>
+            <td class="col-title">
+              <div class="row-title">Hoy celebramos una resolución favorable de equivalencia para uno de nuestros clientes. ✅</div>
+              <div class="row-meta">
+                <span class="tag">Testimonio de cliente</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">8 sep 2025</td>
+            <td class="num hl ">129.159</td>
+            <td class="num ">1.662</td>
+            <td class="num ">1.29%</td>
+            <td class="num num-gold">579</td>
+            <td class="num ">286</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DOWKnTMgt36/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">8</td>
+            <td class="col-title">
+              <div class="row-title">¡Tu homologación en España NO tiene que ser como un trámite de Perezosos! 🐌😂 (Aunque...</div>
+              <div class="row-meta">
+                <span class="tag">Humor/Meme</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">31 oct 2025</td>
+            <td class="num hl ">111.160</td>
+            <td class="num ">10.832</td>
+            <td class="num ">9.74%</td>
+            <td class="num num-gold">308</td>
+            <td class="num ">502</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DQesPv_j5Vi/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="ranking-block">
+        <h4 class="ranking-title">Top por interacción <span class="ranking-sub">— mejores candidatos a campaña</span></h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th class="col-rank">#</th><th class="col-title">Publicación</th><th class="col-date">Fecha</th>
+              <th class="num">Alcance</th><th class="num hl">Interacc.</th><th class="num hl">Tasa</th>
+              <th class="num">Seguid.</th><th class="num">Guard.</th><th class="col-link"></th>
+            </tr></thead>
+            <tbody>
+          <tr>
+            <td class="col-rank">1</td>
+            <td class="col-title">
+              <div class="row-title">Muchos piensan que deben mudarse a España para homologar su título universitario, per...</div>
+              <div class="row-meta">
+                <span class="tag">Homologación de títulos</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">2 sep 2025</td>
+            <td class="num ">557.108</td>
+            <td class="num hl ">50.362</td>
+            <td class="num ">9.04%</td>
+            <td class="num num-gold">7.977</td>
+            <td class="num ">6.662</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DOHF55DDYFz/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">2</td>
+            <td class="col-title">
+              <div class="row-title">¿Sabías que no necesitas estar en España para homologar? 🇪🇸✈️</div>
+              <div class="row-meta">
+                <span class="tag">Homologación de títulos</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">4 mar 2026</td>
+            <td class="num ">578.333</td>
+            <td class="num hl ">20.914</td>
+            <td class="num ">3.62%</td>
+            <td class="num num-gold">7.355</td>
+            <td class="num ">4.951</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DVdqSFnjHlU/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">3</td>
+            <td class="col-title">
+              <div class="row-title">¿Alguna vez te has parado frente a esta estatua y has sentido que Madrid es el lugar...</div>
+              <div class="row-meta">
+                <span class="tag">Motivacional/Inspiracional</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">2 jul 2026</td>
+            <td class="num ">91.547</td>
+            <td class="num hl ">17.443</td>
+            <td class="num ">19.05%</td>
+            <td class="num num-gold">238</td>
+            <td class="num ">712</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DaSwg_TAg12/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">4</td>
+            <td class="col-title">
+              <div class="row-title">¿Sabías que tu título universitario vale mucho más de lo que crees en España? 🎓✨</div>
+              <div class="row-meta">
+                <span class="tag">Homologación de títulos</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">16 abr 2026</td>
+            <td class="num ">406.324</td>
+            <td class="num hl ">16.434</td>
+            <td class="num ">4.04%</td>
+            <td class="num num-gold">5.530</td>
+            <td class="num ">4.091</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DXM-JA_AZWO/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">5</td>
+            <td class="col-title">
+              <div class="row-title">¡Tu homologación en España NO tiene que ser como un trámite de Perezosos! 🐌😂 (Aunque...</div>
+              <div class="row-meta">
+                <span class="tag">Humor/Meme</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">31 oct 2025</td>
+            <td class="num ">111.160</td>
+            <td class="num hl ">10.832</td>
+            <td class="num ">9.74%</td>
+            <td class="num num-gold">308</td>
+            <td class="num ">502</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DQesPv_j5Vi/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">6</td>
+            <td class="col-title">
+              <div class="row-title">Llegando a España como toda una profesional! 😎🇪🇸</div>
+              <div class="row-meta">
+                <span class="tag">Testimonio de cliente</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">13 feb 2026</td>
+            <td class="num ">99.249</td>
+            <td class="num hl ">7.675</td>
+            <td class="num ">7.73%</td>
+            <td class="num num-gold">521</td>
+            <td class="num ">481</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DUtAhj3DQGg/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">7</td>
+            <td class="col-title">
+              <div class="row-title">España necesita médicos y hoy más que nunca tu profesión puede abrirte las puertas. 🩺</div>
+              <div class="row-meta">
+                <span class="tag">Homologación de títulos</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">1 sep 2025</td>
+            <td class="num ">633.901</td>
+            <td class="num hl ">7.142</td>
+            <td class="num ">1.13%</td>
+            <td class="num num-gold">766</td>
+            <td class="num ">759</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DOEiTtKgpFN/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">8</td>
+            <td class="col-title">
+              <div class="row-title">¿Sabías que no necesitas estar en España para homologar? 🇪🇸✈️</div>
+              <div class="row-meta">
+                <span class="tag">Homologación de títulos</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">9 may 2026</td>
+            <td class="num ">73.300</td>
+            <td class="num hl ">6.684</td>
+            <td class="num ">9.12%</td>
+            <td class="num num-gold">1.519</td>
+            <td class="num ">1.545</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DYIJExNgats/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="brand-section" id="brand-nac">
+      <div class="brand-header">
+        <div class="brand-name-block">
+          <h3 class="brand-name">NAC</h3>
+          <div class="brand-full-name">Nacionalízate</div>
+        </div>
+        <div class="brand-summary">
+          <div class="summary-stat">
+            <span class="summary-value">564</span>
+            <span class="summary-label">publicaciones (1 año)</span>
+          </div>
+          <div class="summary-stat">
+            <span class="summary-value">14.996.694</span>
+            <span class="summary-label">alcance acumulado</span>
+          </div>
+          <div class="summary-stat summary-stat-gold">
+            <span class="summary-value">135.563</span>
+            <span class="summary-label">seguidores generados</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ranking-block">
+        <h4 class="ranking-title">Top por alcance <span class="ranking-sub">— mayor exposición</span></h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th class="col-rank">#</th><th class="col-title">Publicación</th><th class="col-date">Fecha</th>
+              <th class="num hl">Alcance</th><th class="num">Interacc.</th><th class="num">Tasa</th>
+              <th class="num">Seguid.</th><th class="num">Guard.</th><th class="col-link"></th>
+            </tr></thead>
+            <tbody>
+          <tr>
+            <td class="col-rank">1</td>
+            <td class="col-title">
+              <div class="row-title">🥊 ¡El combate que no sabías que terminaría en un abrazo! 🇲🇽🤝🇪🇸</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">1 jun 2026</td>
+            <td class="num hl ">1.674.618</td>
+            <td class="num ">159.943</td>
+            <td class="num ">9.55%</td>
+            <td class="num num-gold">20.448</td>
+            <td class="num ">24.646</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DZDJj5viOL4/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">2</td>
+            <td class="col-title">
+              <div class="row-title">&quot;Comando estelar, ¿me escuchan?&quot; 🌌🛰️</div>
+              <div class="row-meta">
+                <span class="tag">Anécdota personal</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">1 jun 2026</td>
+            <td class="num hl ">1.059.458</td>
+            <td class="num ">142.970</td>
+            <td class="num ">13.49%</td>
+            <td class="num num-gold">1.077</td>
+            <td class="num ">6.074</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DZDlCW4E9FI/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">3</td>
+            <td class="col-title">
+              <div class="row-title">¿Cuál de estos dos ganaría en tu lista de deseos? 🥊🇪🇸🇺🇸</div>
+              <div class="row-meta">
+                <span class="tag">Comparativa de paises</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">29 may 2026</td>
+            <td class="num hl ">1.054.113</td>
+            <td class="num ">133.051</td>
+            <td class="num ">12.62%</td>
+            <td class="num num-gold">7.980</td>
+            <td class="num ">8.766</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DY7bPhojaaa/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">4</td>
+            <td class="col-title">
+              <div class="row-title">¿Sabías que el pasaporte español es uno de los más poderosos del mundo? 🌍</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">18 may 2026</td>
+            <td class="num hl ">1.036.753</td>
+            <td class="num ">91.224</td>
+            <td class="num ">8.8%</td>
+            <td class="num num-gold">14.103</td>
+            <td class="num ">8.047</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DYex1iKE_HC/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">5</td>
+            <td class="col-title">
+              <div class="row-title">¿Acabas de aterrizar en España y no sabes por dónde empezar? 🇪🇸</div>
+              <div class="row-meta">
+                <span class="tag">Trámite paso a paso</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">13 abr 2026</td>
+            <td class="num hl ">1.020.740</td>
+            <td class="num ">86.533</td>
+            <td class="num ">8.48%</td>
+            <td class="num num-gold">31.444</td>
+            <td class="num ">17.742</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DXEnTTWj-B7/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">6</td>
+            <td class="col-title">
+              <div class="row-title">¡Esa sensación de cuando por fin eres oficialmente español! 🇪🇸🙌</div>
+              <div class="row-meta">
+                <span class="tag">Testimonio de cliente</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">30 abr 2026</td>
+            <td class="num hl ">653.725</td>
+            <td class="num ">88.841</td>
+            <td class="num ">13.59%</td>
+            <td class="num num-gold">387</td>
+            <td class="num ">4.230</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DXw95N7EYMY/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">7</td>
+            <td class="col-title">
+              <div class="row-title">📢 ¡Atención! Si eres de alguno de estos países, puedes obtener la nacionalidad españo...</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">8 sep 2025</td>
+            <td class="num hl ">640.944</td>
+            <td class="num ">34.992</td>
+            <td class="num ">5.46%</td>
+            <td class="num num-gold">10.569</td>
+            <td class="num ">3.378</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DOWPNMliN4K/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">8</td>
+            <td class="col-title">
+              <div class="row-title">📍 Sabemos que contratar servicios online puede generar dudas, especialmente cuando se...</div>
+              <div class="row-meta">
+                <span class="tag">Testimonio de cliente</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">23 sep 2025</td>
+            <td class="num hl ">495.729</td>
+            <td class="num ">1.014</td>
+            <td class="num ">0.2%</td>
+            <td class="num num-gold">120</td>
+            <td class="num ">437</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DO8N_wCDbsy/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="ranking-block">
+        <h4 class="ranking-title">Top por interacción <span class="ranking-sub">— mejores candidatos a campaña</span></h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th class="col-rank">#</th><th class="col-title">Publicación</th><th class="col-date">Fecha</th>
+              <th class="num">Alcance</th><th class="num hl">Interacc.</th><th class="num hl">Tasa</th>
+              <th class="num">Seguid.</th><th class="num">Guard.</th><th class="col-link"></th>
+            </tr></thead>
+            <tbody>
+          <tr>
+            <td class="col-rank">1</td>
+            <td class="col-title">
+              <div class="row-title">🥊 ¡El combate que no sabías que terminaría en un abrazo! 🇲🇽🤝🇪🇸</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">1 jun 2026</td>
+            <td class="num ">1.674.618</td>
+            <td class="num hl ">159.943</td>
+            <td class="num ">9.55%</td>
+            <td class="num num-gold">20.448</td>
+            <td class="num ">24.646</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DZDJj5viOL4/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">2</td>
+            <td class="col-title">
+              <div class="row-title">&quot;Comando estelar, ¿me escuchan?&quot; 🌌🛰️</div>
+              <div class="row-meta">
+                <span class="tag">Anécdota personal</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">1 jun 2026</td>
+            <td class="num ">1.059.458</td>
+            <td class="num hl ">142.970</td>
+            <td class="num ">13.49%</td>
+            <td class="num num-gold">1.077</td>
+            <td class="num ">6.074</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DZDlCW4E9FI/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">3</td>
+            <td class="col-title">
+              <div class="row-title">¿Cuál de estos dos ganaría en tu lista de deseos? 🥊🇪🇸🇺🇸</div>
+              <div class="row-meta">
+                <span class="tag">Comparativa de paises</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">29 may 2026</td>
+            <td class="num ">1.054.113</td>
+            <td class="num hl ">133.051</td>
+            <td class="num ">12.62%</td>
+            <td class="num num-gold">7.980</td>
+            <td class="num ">8.766</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DY7bPhojaaa/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">4</td>
+            <td class="col-title">
+              <div class="row-title">¿Sabías que el pasaporte español es uno de los más poderosos del mundo? 🌍</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">18 may 2026</td>
+            <td class="num ">1.036.753</td>
+            <td class="num hl ">91.224</td>
+            <td class="num ">8.8%</td>
+            <td class="num num-gold">14.103</td>
+            <td class="num ">8.047</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DYex1iKE_HC/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">5</td>
+            <td class="col-title">
+              <div class="row-title">¡Esa sensación de cuando por fin eres oficialmente español! 🇪🇸🙌</div>
+              <div class="row-meta">
+                <span class="tag">Testimonio de cliente</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">30 abr 2026</td>
+            <td class="num ">653.725</td>
+            <td class="num hl ">88.841</td>
+            <td class="num ">13.59%</td>
+            <td class="num num-gold">387</td>
+            <td class="num ">4.230</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DXw95N7EYMY/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">6</td>
+            <td class="col-title">
+              <div class="row-title">¿Acabas de aterrizar en España y no sabes por dónde empezar? 🇪🇸</div>
+              <div class="row-meta">
+                <span class="tag">Trámite paso a paso</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">13 abr 2026</td>
+            <td class="num ">1.020.740</td>
+            <td class="num hl ">86.533</td>
+            <td class="num ">8.48%</td>
+            <td class="num num-gold">31.444</td>
+            <td class="num ">17.742</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DXEnTTWj-B7/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">7</td>
+            <td class="col-title">
+              <div class="row-title">¿Ya eres español? ¡Enhorabuena! 🎉</div>
+              <div class="row-meta">
+                <span class="tag">Trámite paso a paso</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">16 mar 2026</td>
+            <td class="num ">390.877</td>
+            <td class="num hl ">40.462</td>
+            <td class="num ">10.35%</td>
+            <td class="num num-gold">5.394</td>
+            <td class="num ">9.673</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DV8jyBNDIQE/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">8</td>
+            <td class="col-title">
+              <div class="row-title">📢 ¡Atención! Si eres de alguno de estos países, puedes obtener la nacionalidad españo...</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">8 sep 2025</td>
+            <td class="num ">640.944</td>
+            <td class="num hl ">34.992</td>
+            <td class="num ">5.46%</td>
+            <td class="num num-gold">10.569</td>
+            <td class="num ">3.378</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DOWPNMliN4K/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="brand-section" id="brand-mnee">
+      <div class="brand-header">
+        <div class="brand-name-block">
+          <h3 class="brand-name">MNEE</h3>
+          <div class="brand-full-name">Mi Negocio en España</div>
+        </div>
+        <div class="brand-summary">
+          <div class="summary-stat">
+            <span class="summary-value">280</span>
+            <span class="summary-label">publicaciones (1 año)</span>
+          </div>
+          <div class="summary-stat">
+            <span class="summary-value">1.108.943</span>
+            <span class="summary-label">alcance acumulado</span>
+          </div>
+          <div class="summary-stat summary-stat-gold">
+            <span class="summary-value">920</span>
+            <span class="summary-label">seguidores generados</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ranking-block">
+        <h4 class="ranking-title">Top por alcance <span class="ranking-sub">— mayor exposición</span></h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th class="col-rank">#</th><th class="col-title">Publicación</th><th class="col-date">Fecha</th>
+              <th class="num hl">Alcance</th><th class="num">Interacc.</th><th class="num">Tasa</th>
+              <th class="num">Seguid.</th><th class="num">Guard.</th><th class="col-link"></th>
+            </tr></thead>
+            <tbody>
+          <tr>
+            <td class="col-rank">1</td>
+            <td class="col-title">
+              <div class="row-title">🧵 De coser en una habitación a crear un imperio global: La historia no contada detrás...</div>
+              <div class="row-meta">
+                <span class="tag">Historia de exito</span>
+                <span class="tag tag-format">Carrusel</span>
+              </div>
+            </td>
+            <td class="col-date">1 dic 2025</td>
+            <td class="num hl ">706.637</td>
+            <td class="num ">13.090</td>
+            <td class="num ">1.85%</td>
+            <td class="num num-gold">573</td>
+            <td class="num ">879</td>
+            <td class="col-link"><a href="https://www.instagram.com/p/DRuafL1jvm4/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">2</td>
+            <td class="col-title">
+              <div class="row-title">¿Le tienes más miedo al futuro de tus hijos que a la idea de dejarlo todo atrás? 👇</div>
+              <div class="row-meta">
+                <span class="tag">Testimonio de cliente</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">3 jun 2026</td>
+            <td class="num hl ">33.603</td>
+            <td class="num ">100</td>
+            <td class="num ">0.3%</td>
+            <td class="num num-gold">41</td>
+            <td class="num ">11</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DZId8TEkvKL/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">3</td>
+            <td class="col-title">
+              <div class="row-title">¿Mejor prevenir que lamentar? En los negocios, es una regla de oro. 💼📈</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de negocio</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">11 jun 2026</td>
+            <td class="num hl ">19.858</td>
+            <td class="num ">38</td>
+            <td class="num ">0.19%</td>
+            <td class="num num-gold">8</td>
+            <td class="num ">6</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DZdTnHmgPew/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">4</td>
+            <td class="col-title">
+              <div class="row-title">Hoy la libertad se siente más cerca que nunca. 🇻🇪</div>
+              <div class="row-meta">
+                <span class="tag">Motivacional/Inspiracional</span>
+                <span class="tag tag-format">Imagen</span>
+              </div>
+            </td>
+            <td class="col-date">4 ene 2026</td>
+            <td class="num hl ">6.688</td>
+            <td class="num ">135</td>
+            <td class="num ">2.02%</td>
+            <td class="num num-gold">1</td>
+            <td class="num ">6</td>
+            <td class="col-link"><a href="https://www.instagram.com/p/DTGLb5AjnVH/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">5</td>
+            <td class="col-title">
+              <div class="row-title">Muchos creen que invertir en España requiere cientos de miles de euros, pero no siemp...</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de negocio</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">13 oct 2025</td>
+            <td class="num hl ">4.645</td>
+            <td class="num ">295</td>
+            <td class="num ">6.35%</td>
+            <td class="num num-gold">6</td>
+            <td class="num ">53</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DPwiBs5DdYw/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">6</td>
+            <td class="col-title">
+              <div class="row-title">¿Sabías que puedes invertir en España sin estar presente todos los días?</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de negocio</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">19 sep 2025</td>
+            <td class="num hl ">4.645</td>
+            <td class="num ">151</td>
+            <td class="num ">3.25%</td>
+            <td class="num num-gold">2</td>
+            <td class="num ">43</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DOyl5foggxt/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">7</td>
+            <td class="col-title">
+              <div class="row-title">¡Esa sensación cuando el papeleo te gana la partida! 📑😵‍💫</div>
+              <div class="row-meta">
+                <span class="tag">Humor/Meme</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">3 abr 2026</td>
+            <td class="num hl ">4.061</td>
+            <td class="num ">27</td>
+            <td class="num ">0.66%</td>
+            <td class="num num-gold">0</td>
+            <td class="num ">1</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DWrp_MGE2Cb/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">8</td>
+            <td class="col-title">
+              <div class="row-title">¿Vio un postre o una tendencia global? La clave está en la visión, no en el producto. 👀💪</div>
+              <div class="row-meta">
+                <span class="tag">Historia de exito</span>
+                <span class="tag tag-format">Carrusel</span>
+              </div>
+            </td>
+            <td class="col-date">8 dic 2025</td>
+            <td class="num hl ">3.934</td>
+            <td class="num ">162</td>
+            <td class="num ">4.12%</td>
+            <td class="num num-gold">6</td>
+            <td class="num ">20</td>
+            <td class="col-link"><a href="https://www.instagram.com/p/DSAw08dDoab/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="ranking-block">
+        <h4 class="ranking-title">Top por interacción <span class="ranking-sub">— mejores candidatos a campaña</span></h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th class="col-rank">#</th><th class="col-title">Publicación</th><th class="col-date">Fecha</th>
+              <th class="num">Alcance</th><th class="num hl">Interacc.</th><th class="num hl">Tasa</th>
+              <th class="num">Seguid.</th><th class="num">Guard.</th><th class="col-link"></th>
+            </tr></thead>
+            <tbody>
+          <tr>
+            <td class="col-rank">1</td>
+            <td class="col-title">
+              <div class="row-title">🧵 De coser en una habitación a crear un imperio global: La historia no contada detrás...</div>
+              <div class="row-meta">
+                <span class="tag">Historia de exito</span>
+                <span class="tag tag-format">Carrusel</span>
+              </div>
+            </td>
+            <td class="col-date">1 dic 2025</td>
+            <td class="num ">706.637</td>
+            <td class="num hl ">13.090</td>
+            <td class="num ">1.85%</td>
+            <td class="num num-gold">573</td>
+            <td class="num ">879</td>
+            <td class="col-link"><a href="https://www.instagram.com/p/DRuafL1jvm4/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">2</td>
+            <td class="col-title">
+              <div class="row-title">Muchos creen que invertir en España requiere cientos de miles de euros, pero no siemp...</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de negocio</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">13 oct 2025</td>
+            <td class="num ">4.645</td>
+            <td class="num hl ">295</td>
+            <td class="num ">6.35%</td>
+            <td class="num num-gold">6</td>
+            <td class="num ">53</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DPwiBs5DdYw/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">3</td>
+            <td class="col-title">
+              <div class="row-title">¿Un negocio sin empleados, con ingresos constantes y alta rentabilidad? 💰</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de negocio</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">11 sep 2025</td>
+            <td class="num ">3.880</td>
+            <td class="num hl ">289</td>
+            <td class="num ">7.45%</td>
+            <td class="num num-gold">7</td>
+            <td class="num ">46</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DOePJyrlR8D/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">4</td>
+            <td class="col-title">
+              <div class="row-title">¿Vio un postre o una tendencia global? La clave está en la visión, no en el producto. 👀💪</div>
+              <div class="row-meta">
+                <span class="tag">Historia de exito</span>
+                <span class="tag tag-format">Carrusel</span>
+              </div>
+            </td>
+            <td class="col-date">8 dic 2025</td>
+            <td class="num ">3.934</td>
+            <td class="num hl ">162</td>
+            <td class="num ">4.12%</td>
+            <td class="num num-gold">6</td>
+            <td class="num ">20</td>
+            <td class="col-link"><a href="https://www.instagram.com/p/DSAw08dDoab/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">5</td>
+            <td class="col-title">
+              <div class="row-title">¡Qué gran oportunidad de negocio has captado en el video! Como tu estratega, aquí tie...</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de negocio</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">18 ago 2026</td>
+            <td class="num ">3.471</td>
+            <td class="num hl ">155</td>
+            <td class="num ">4.47%</td>
+            <td class="num num-gold">8</td>
+            <td class="num ">45</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DcL_jLijNjm/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">6</td>
+            <td class="col-title">
+              <div class="row-title">¿Sabías que puedes invertir en España sin estar presente todos los días?</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de negocio</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">19 sep 2025</td>
+            <td class="num ">4.645</td>
+            <td class="num hl ">151</td>
+            <td class="num ">3.25%</td>
+            <td class="num num-gold">2</td>
+            <td class="num ">43</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DOyl5foggxt/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">7</td>
+            <td class="col-title">
+              <div class="row-title">Residencia No Lucrativa y Negocio en España? ¡Descubre la jugada maestra! 👀</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">12 nov 2025</td>
+            <td class="num ">2.929</td>
+            <td class="num hl ">136</td>
+            <td class="num ">4.64%</td>
+            <td class="num num-gold">8</td>
+            <td class="num ">25</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DQ9D2mgiOsQ/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">8</td>
+            <td class="col-title">
+              <div class="row-title">Residencia No Lucrativa y Negocio en España? ¡Descubre la jugada maestra! 👀</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">12 nov 2025</td>
+            <td class="num ">2.929</td>
+            <td class="num hl ">136</td>
+            <td class="num ">4.64%</td>
+            <td class="num num-gold">8</td>
+            <td class="num ">25</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DQ9D2mgiOsQ/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="brand-section" id="brand-ca">
+      <div class="brand-header">
+        <div class="brand-name-block">
+          <h3 class="brand-name">C&amp;A</h3>
+          <div class="brand-full-name">Cohen y Aguirre</div>
+        </div>
+        <div class="brand-summary">
+          <div class="summary-stat">
+            <span class="summary-value">662</span>
+            <span class="summary-label">publicaciones (1 año)</span>
+          </div>
+          <div class="summary-stat">
+            <span class="summary-value">16.228.837</span>
+            <span class="summary-label">alcance acumulado</span>
+          </div>
+          <div class="summary-stat summary-stat-gold">
+            <span class="summary-value">51.262</span>
+            <span class="summary-label">seguidores generados</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ranking-block">
+        <h4 class="ranking-title">Top por alcance <span class="ranking-sub">— mayor exposición</span></h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th class="col-rank">#</th><th class="col-title">Publicación</th><th class="col-date">Fecha</th>
+              <th class="num hl">Alcance</th><th class="num">Interacc.</th><th class="num">Tasa</th>
+              <th class="num">Seguid.</th><th class="num">Guard.</th><th class="col-link"></th>
+            </tr></thead>
+            <tbody>
+          <tr>
+            <td class="col-rank">1</td>
+            <td class="col-title">
+              <div class="row-title">Lo que el dinero jamás podrá comprar. 🎯</div>
+              <div class="row-meta">
+                <span class="tag">Motivacional/Inspiracional</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">5 ago 2026</td>
+            <td class="num hl ">1.092.202</td>
+            <td class="num ">170.239</td>
+            <td class="num ">15.59%</td>
+            <td class="num num-gold">994</td>
+            <td class="num ">10.538</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/Dbp4DHbjKl7/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">2</td>
+            <td class="col-title">
+              <div class="row-title">✈️ ¡Deja de soñar con España y comienza a tramitar tu residencia AHORA! 🇪🇸</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">11 nov 2025</td>
+            <td class="num hl ">881.958</td>
+            <td class="num ">62.227</td>
+            <td class="num ">7.06%</td>
+            <td class="num num-gold">9.742</td>
+            <td class="num ">8.096</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DQ7V4A8FHGy/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">3</td>
+            <td class="col-title">
+              <div class="row-title">✨ ¿Eres mexicano 🇲🇽 y sueñas con vivir en España 🇪🇸 sin necesidad de trabajar?</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Carrusel</span>
+              </div>
+            </td>
+            <td class="col-date">25 sep 2025</td>
+            <td class="num hl ">717.197</td>
+            <td class="num ">5.623</td>
+            <td class="num ">0.78%</td>
+            <td class="num num-gold">1.681</td>
+            <td class="num ">1.476</td>
+            <td class="col-link"><a href="https://www.instagram.com/p/DPB6NkJiDmI/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">4</td>
+            <td class="col-title">
+              <div class="row-title">¿Por qué los latinos somos &quot;imparables&quot;? 🔥 Ser latino no es solo un origen, es un sup...</div>
+              <div class="row-meta">
+                <span class="tag">Motivacional/Inspiracional</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">10 may 2026</td>
+            <td class="num hl ">664.262</td>
+            <td class="num ">90.312</td>
+            <td class="num ">13.6%</td>
+            <td class="num num-gold">632</td>
+            <td class="num ">5.756</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DYKEtBQgUnc/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">5</td>
+            <td class="col-title">
+              <div class="row-title">La única persona que queda para despedirse: una historia que te rompe el corazón. 🥹</div>
+              <div class="row-meta">
+                <span class="tag">Anécdota personal</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">12 nov 2025</td>
+            <td class="num hl ">621.252</td>
+            <td class="num ">42.615</td>
+            <td class="num ">6.86%</td>
+            <td class="num num-gold">840</td>
+            <td class="num ">1.960</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DQ-BPpnjXtr/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">6</td>
+            <td class="col-title">
+              <div class="row-title">Esa seguridad solo te la da la nacionalidad. 🇪🇸😎</div>
+              <div class="row-meta">
+                <span class="tag">Testimonio de cliente</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">20 feb 2026</td>
+            <td class="num hl ">560.364</td>
+            <td class="num ">91.946</td>
+            <td class="num ">16.41%</td>
+            <td class="num num-gold">170</td>
+            <td class="num ">3.877</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DU_gsNeDFym/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">7</td>
+            <td class="col-title">
+              <div class="row-title">El sonido que cura cualquier cansancio. ✈️🇪🇸</div>
+              <div class="row-meta">
+                <span class="tag">Motivacional/Inspiracional</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">10 mar 2026</td>
+            <td class="num hl ">559.183</td>
+            <td class="num ">74.685</td>
+            <td class="num ">13.36%</td>
+            <td class="num num-gold">828</td>
+            <td class="num ">3.074</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DVtASRtmU3T/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">8</td>
+            <td class="col-title">
+              <div class="row-title">¿Y si te dijera que NO tienes que elegir?</div>
+              <div class="row-meta">
+                <span class="tag">Mitos y errores comunes</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">9 mar 2026</td>
+            <td class="num hl ">557.755</td>
+            <td class="num ">16.818</td>
+            <td class="num ">3.02%</td>
+            <td class="num num-gold">2.000</td>
+            <td class="num ">3.352</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DVrVr8ijqxj/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="ranking-block">
+        <h4 class="ranking-title">Top por interacción <span class="ranking-sub">— mejores candidatos a campaña</span></h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th class="col-rank">#</th><th class="col-title">Publicación</th><th class="col-date">Fecha</th>
+              <th class="num">Alcance</th><th class="num hl">Interacc.</th><th class="num hl">Tasa</th>
+              <th class="num">Seguid.</th><th class="num">Guard.</th><th class="col-link"></th>
+            </tr></thead>
+            <tbody>
+          <tr>
+            <td class="col-rank">1</td>
+            <td class="col-title">
+              <div class="row-title">Lo que el dinero jamás podrá comprar. 🎯</div>
+              <div class="row-meta">
+                <span class="tag">Motivacional/Inspiracional</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">5 ago 2026</td>
+            <td class="num ">1.092.202</td>
+            <td class="num hl ">170.239</td>
+            <td class="num ">15.59%</td>
+            <td class="num num-gold">994</td>
+            <td class="num ">10.538</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/Dbp4DHbjKl7/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">2</td>
+            <td class="col-title">
+              <div class="row-title">Esa seguridad solo te la da la nacionalidad. 🇪🇸😎</div>
+              <div class="row-meta">
+                <span class="tag">Testimonio de cliente</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">20 feb 2026</td>
+            <td class="num ">560.364</td>
+            <td class="num hl ">91.946</td>
+            <td class="num ">16.41%</td>
+            <td class="num num-gold">170</td>
+            <td class="num ">3.877</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DU_gsNeDFym/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">3</td>
+            <td class="col-title">
+              <div class="row-title">¿Por qué los latinos somos &quot;imparables&quot;? 🔥 Ser latino no es solo un origen, es un sup...</div>
+              <div class="row-meta">
+                <span class="tag">Motivacional/Inspiracional</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">10 may 2026</td>
+            <td class="num ">664.262</td>
+            <td class="num hl ">90.312</td>
+            <td class="num ">13.6%</td>
+            <td class="num num-gold">632</td>
+            <td class="num ">5.756</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DYKEtBQgUnc/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">4</td>
+            <td class="col-title">
+              <div class="row-title">El sonido que cura cualquier cansancio. ✈️🇪🇸</div>
+              <div class="row-meta">
+                <span class="tag">Motivacional/Inspiracional</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">10 mar 2026</td>
+            <td class="num ">559.183</td>
+            <td class="num hl ">74.685</td>
+            <td class="num ">13.36%</td>
+            <td class="num num-gold">828</td>
+            <td class="num ">3.074</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DVtASRtmU3T/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">5</td>
+            <td class="col-title">
+              <div class="row-title">✈️ ¡Deja de soñar con España y comienza a tramitar tu residencia AHORA! 🇪🇸</div>
+              <div class="row-meta">
+                <span class="tag">Oportunidad de visado</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">11 nov 2025</td>
+            <td class="num ">881.958</td>
+            <td class="num hl ">62.227</td>
+            <td class="num ">7.06%</td>
+            <td class="num num-gold">9.742</td>
+            <td class="num ">8.096</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DQ7V4A8FHGy/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">6</td>
+            <td class="col-title">
+              <div class="row-title">Hay dos tipos de oficinas: las aburridas... y las que tienen un &quot;té de manzanilla&quot; qu...</div>
+              <div class="row-meta">
+                <span class="tag">Humor/Meme</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">3 jul 2026</td>
+            <td class="num ">554.764</td>
+            <td class="num hl ">50.658</td>
+            <td class="num ">9.13%</td>
+            <td class="num num-gold">340</td>
+            <td class="num ">4.563</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DaVTW1aEWf8/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">7</td>
+            <td class="col-title">
+              <div class="row-title">La única persona que queda para despedirse: una historia que te rompe el corazón. 🥹</div>
+              <div class="row-meta">
+                <span class="tag">Anécdota personal</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">12 nov 2025</td>
+            <td class="num ">621.252</td>
+            <td class="num hl ">42.615</td>
+            <td class="num ">6.86%</td>
+            <td class="num num-gold">840</td>
+            <td class="num ">1.960</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DQ-BPpnjXtr/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr>
+          <tr>
+            <td class="col-rank">8</td>
+            <td class="col-title">
+              <div class="row-title">¿Te vas a España y te preguntas si tu perro puede acompañarte? ¡Absolutamente sí! 🐕</div>
+              <div class="row-meta">
+                <span class="tag">Requisitos legales</span>
+                <span class="tag tag-format">Reel</span>
+              </div>
+            </td>
+            <td class="col-date">3 nov 2025</td>
+            <td class="num ">424.262</td>
+            <td class="num hl ">35.984</td>
+            <td class="num ">8.48%</td>
+            <td class="num num-gold">2.211</td>
+            <td class="num ">4.546</td>
+            <td class="col-link"><a href="https://www.instagram.com/reel/DQm2PVWCtCQ/" target="_blank" rel="noopener">Ver ↗</a></td>
+          </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  <footer class="page-footer">
+    Fuente: Meta Business Suite &middot; Estadísticas de contenido, exportado el 1 sep 2026. Interacción = me gusta + comentarios + compartidos + guardados. Tasa = interacción / alcance. Alcance/interacciones orgánicas no están disponibles vía la API pública con el permiso actual — estos datos vienen directamente de la interfaz de Business Suite. Temas clasificados automáticamente a partir del texto de cada publicación.
+  </footer>
+</div>
