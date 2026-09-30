@@ -1,37 +1,37 @@
 {
   "ETV": {
-    "total_posts": 565,
-    "total_reach": 3644186,
-    "total_follows": 36729,
-    "total_saves": 32606,
-    "total_likes": 138548
+    "total_posts": 685,
+    "total_reach": 4555602,
+    "total_follows": 36866,
+    "total_saves": 32717,
+    "total_likes": 140593
   },
   "ETH": {
-    "total_posts": 531,
-    "total_reach": 6066681,
-    "total_follows": 33502,
-    "total_saves": 45339,
-    "total_likes": 145994
+    "total_posts": 1117,
+    "total_reach": 15501258,
+    "total_follows": 103943,
+    "total_saves": 109758,
+    "total_likes": 471495
   },
   "NAC": {
-    "total_posts": 564,
-    "total_reach": 14996694,
-    "total_follows": 135563,
-    "total_saves": 153011,
-    "total_likes": 653899
+    "total_posts": 604,
+    "total_reach": 18146907,
+    "total_follows": 144714,
+    "total_saves": 162169,
+    "total_likes": 699357
   },
   "MNEE": {
-    "total_posts": 280,
-    "total_reach": 1108943,
-    "total_follows": 920,
-    "total_saves": 2317,
-    "total_likes": 16734
+    "total_posts": 1122,
+    "total_reach": 3463292,
+    "total_follows": 12556,
+    "total_saves": 18454,
+    "total_likes": 107923
   },
   "C&A": {
-    "total_posts": 662,
-    "total_reach": 16228837,
-    "total_follows": 51262,
-    "total_saves": 104866,
-    "total_likes": 778521
+    "total_posts": 1969,
+    "total_reach": 25916758,
+    "total_follows": 80610,
+    "total_saves": 177140,
+    "total_likes": 1553512
   }
 }

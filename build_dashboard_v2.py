@@ -139,7 +139,7 @@ def render_brand_section(brand):
         <div class="brand-summary">
           <div class="summary-stat">
             <span class="summary-value">{fmt(s['total_posts'])}</span>
-            <span class="summary-label">publicaciones (1 año)</span>
+            <span class="summary-label">publicaciones (histórico)</span>
           </div>
           <div class="summary-stat">
             <span class="summary-value">{fmt(s['total_reach'])}</span>
@@ -293,7 +293,7 @@ html_doc = f"""<title>Bitácora de Contenido</title>
 
 <div class="page">
   <header class="masthead">
-    <div class="masthead-eyebrow">Auditoría de contenido orgánico &middot; sep 2025&ndash;ago 2026 (1 año)</div>
+    <div class="masthead-eyebrow">Auditoría de contenido orgánico &middot; sep 2022&ndash;sep 2026 (histórico completo)</div>
     <h1>Bitácora de Contenido</h1>
     <p>Reels, carruseles y fotos publicados en Instagram por las 5 marcas. Cada marca trae dos rankings — por alcance (mayor exposición) y por interacción (mejor candidato a campaña) — con tema, formato, fecha y enlace a la publicación original.</p>
     <div class="totals-strip">
